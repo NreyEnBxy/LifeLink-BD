@@ -1,0 +1,8 @@
+{
+  "name": "LifeLink BD",
+  "description": "Free Blood & Emergency Help Network for Bangladesh. Real-time blood donor tracking and emergency requests using Leaflet, OpenStreetMap, and Firebase.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}

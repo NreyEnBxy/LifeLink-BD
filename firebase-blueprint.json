@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Information about a user, donor status, and blood group.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "bloodGroup": { "type": "string", "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"] },
+        "phoneNumber": { "type": "string" },
+        "isDonor": { "type": "boolean" },
+        "isAvailable": { "type": "boolean" },
+        "lastDonationDate": { "type": "string", "format": "date-time" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" },
+            "address": { "type": "string" }
+          }
+        },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name", "bloodGroup", "phoneNumber", "isDonor"]
+    },
+    "EmergencyRequest": {
+      "title": "Emergency Request",
+      "description": "A request for blood donation in an emergency.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "requesterId": { "type": "string" },
+        "bloodGroup": { "type": "string", "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"] },
+        "location": {
+          "type": "object",
+          "properties": {
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" },
+            "address": { "type": "string" }
+          }
+        },
+        "contactNumber": { "type": "string" },
+        "urgency": { "type": "string", "enum": ["Low", "Normal", "Critical"] },
+        "status": { "type": "string", "enum": ["Active", "Fulfilled", "Cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["requesterId", "bloodGroup", "location", "contactNumber", "urgency", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profile and donor configuration."
+    },
+    "emergency_requests/{requestId}": {
+      "schema": "EmergencyRequest",
+      "description": "Active and past emergency blood requests."
+    }
+  }
+}
