@@ -70,7 +70,10 @@ export default function MapView({ userLocation, userProfile }: MapProps) {
       where("status", "==", "Active")
     );
     const unsubRequests = onSnapshot(requestQuery, (snap) => {
-      const data = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }) as EmergencyRequest);
+      const twentyFourHoursAgo = Date.now() - 24 * 60 * 60 * 1000;
+      const data = snap.docs
+        .map(doc => ({ id: doc.id, ...doc.data() }) as EmergencyRequest)
+        .filter(req => new Date(req.createdAt).getTime() >= twentyFourHoursAgo);
       setRequests(data);
     });
 
